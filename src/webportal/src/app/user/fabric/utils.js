@@ -65,3 +65,13 @@ export const checkQuota = value => {
     return error;
   }
 };
+
+const additionalInformationSchema = Joi.string().empty('');
+export const checkAdditionalInformation = value => {
+  const { error } = Joi.validate(value, additionalInformationSchema);
+  if (error) {
+    return error.message.replace('"value"', 'AdditionalInformation');
+  } else {
+    return error;
+  }
+};

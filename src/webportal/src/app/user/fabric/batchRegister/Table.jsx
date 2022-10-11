@@ -32,7 +32,13 @@ import { StatusBadge } from '../../../components/status-badge';
 import TableTextField from './TableTextField';
 import Context from './Context';
 import { toBool, isFinished } from './utils';
-import { checkUsername, checkPassword, checkEmail, checkQuota } from '../utils';
+import {
+  checkUsername,
+  checkPassword,
+  checkEmail,
+  checkQuota,
+  checkAdditionalInformation,
+} from '../utils';
 
 export default function Table() {
   const { userInfos, virtualClusters, removeRow, allUsers } = useContext(
@@ -264,6 +270,36 @@ export default function Table() {
   virtualClusterColumn.onRender.displayName = 'onRenderVirtualClusterColumn';
 
   /**
+   * additional information column
+   * @type {import('office-ui-fabric-react').IColumn}
+   */
+  const additionalInformationColumn = {
+    key: 'additionalInformation',
+    minWidth: 250,
+    maxWidth: 300,
+    name: 'Additional Information',
+    className: FontClassNames.mediumPlus,
+    headerClassName: FontClassNames.medium,
+    isResizable: true,
+    onRender: userInfo => {
+      const { additionalInformation } = userInfo;
+      const getErrorMessage = value => {
+        return checkAdditionalInformation(value);
+      };
+      return (
+        <TableTextField
+          readOnly={isFinished(userInfo)}
+          defaultValue={additionalInformation}
+          onChange={(_event, newValue) => {
+            userInfo.additionalInformation = newValue;
+          }}
+          onGetErrorMessage={getErrorMessage}
+        />
+      );
+    },
+  };
+
+  /**
    * status column
    * @type {import('office-ui-fabric-react').IColumn}
    */
@@ -337,6 +373,7 @@ export default function Table() {
     adminColumn,
     quotaColumn,
     virtualClusterColumn,
+    additionalInformationColumn,
     actionColumn,
   ];
 

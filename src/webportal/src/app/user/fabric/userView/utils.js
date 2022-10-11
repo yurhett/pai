@@ -24,3 +24,7 @@ export const getVirtualCluster = user => {
 export const getQuota = user => {
   return user.extension.quota;
 };
+
+export const getAdditionalInformation = user => {
+  return user.extension.additionalInformation;
+};

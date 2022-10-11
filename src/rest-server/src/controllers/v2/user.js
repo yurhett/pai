@@ -223,7 +223,7 @@ const createUser = async (req, res, next) => {
 
 const updateExtensionInternal = async (oldExtension, newExtension, admin) => {
   const retExtension = JSON.parse(JSON.stringify(oldExtension));
-  const adminKeyArray = ['quota']; // This allows for expansion.
+  const adminKeyArray = ['quota', 'additionalInformation']; // This allows for expansion.
   if (!admin) {
     adminKeyArray.forEach((item) => {
       if (item in newExtension) {

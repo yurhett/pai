@@ -47,6 +47,7 @@ const columnEmail = 'email';
 const columnAdmin = 'admin';
 const columnQuota = 'quota';
 const columnVC = 'virtual cluster';
+const columnAdditionalInformation = 'additionalInformation';
 
 export default function BatchRegister() {
   const [userInfos, setUserInfos] = useState([]);
@@ -77,6 +78,7 @@ export default function BatchRegister() {
         [columnAdmin]: false,
         [columnQuota]: 0,
         [columnVC]: 'default',
+        [columnAdditionalInformation]: '',
       },
     ]);
     const universalBOM = '\uFEFF';
@@ -222,7 +224,7 @@ export default function BatchRegister() {
         userInfo[columnPassword],
         toBool(userInfo[columnAdmin]),
         userInfo.vcs,
-        { quota: userInfo.quota },
+        { quota: userInfo.quota, additionalInformation: userInfo.additionalInformation },
       )
         .then(() => {
           return successResult;

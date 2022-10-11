@@ -30,7 +30,7 @@ import {
 import c from 'classnames';
 import t from '../../../components/tachyons.scss';
 
-import { getVirtualCluster, getQuota } from './utils';
+import { getVirtualCluster, getQuota, getAdditionalInformation } from './utils';
 
 import Context from './Context';
 import Ordering from './Ordering';
@@ -149,6 +149,18 @@ export default function Table() {
     },
   });
 
+  const additionalInformationColumn = applySortProps({
+    key: 'additionalInformation',
+    minWidth: 250,
+    name: 'Additional Information',
+    className: FontClassNames.mediumPlus,
+    headerClassName: FontClassNames.medium,
+    isResizable: true,
+    onRender(user) {
+      return getAdditionalInformation(user);
+    },
+  });
+
   /**
    * actions column
    * @type {import('office-ui-fabric-react').IColumn}
@@ -205,6 +217,7 @@ export default function Table() {
     emailColumn,
     quotaColumn,
     virtualClusterColumn,
+    additionalInformationColumn,
     actionsColumn,
   ];
 

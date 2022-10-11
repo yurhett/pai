@@ -123,6 +123,15 @@ const getUserQuota = async (username, filterDefault = -1) => {
   }
 };
 
+const getUserAdditionalInformation = async (username, filterDefault = null) => {
+  const userItem = await getUser(username);
+  if ('additionalInformation' in userItem.extension) {
+    return userItem.extension.additionalInformation;
+  } else {
+    return filterDefault;
+  }
+};
+
 // module exports
 module.exports = {
   getUser,
@@ -139,4 +148,5 @@ module.exports = {
   getUserStorages,
   checkUserStorage,
   getUserQuota,
+  getUserAdditionalInformation,
 };

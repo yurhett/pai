@@ -207,6 +207,29 @@ export const updateUserQuotaRequest = async (username, quota) => {
   });
 };
 
+export const updateUserAdditionalInformationRequest = async (
+  username,
+  additionalInformation,
+) => {
+  const url = `${config.restServerUri}/api/v2/users/`;
+  const token = checkToken();
+  return fetchWrapper(url, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      data: {
+        username: username,
+        extension: {
+          additionalInformation: additionalInformation,
+        },
+      },
+      patch: true,
+    }),
+  });
+};
+
 export const updateUserRequest = async (username, sshMessage) => {
   const url = `${config.restServerUri}/api/v2/users/me`;
   const token = checkToken();

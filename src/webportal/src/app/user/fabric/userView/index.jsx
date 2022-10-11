@@ -36,6 +36,7 @@ import UserEditor from './UserEditor';
 import BatchPasswordEditor from './BatchPasswordEditor';
 import BatchQuotaEditor from './BatchQuotaEditor';
 import BatchVirtualClustersEditor from './BatchVirtualClustersEditor';
+import BatchAdditionalInformationEditor from './BatchAdditionalInformationEditor';
 import {
   getAllUsersRequest,
   getAllVcsRequest,
@@ -223,6 +224,16 @@ export default function UserView() {
     setBatchQuotaEditor({ isOpen: false });
   };
 
+  const [batchAdditionalInformationEditor, setBatchAdditionalInformationEditor] = useState({
+    isOpen: false,
+  });
+  const showBatchAdditionalInformationEditor = () => {
+    setBatchAdditionalInformationEditor({ isOpen: true });
+  };
+  const hideBatchAdditionalInformationEditor = () => {
+    setBatchAdditionalInformationEditor({ isOpen: false });
+  };
+
   const [batchVirtualClustersEditor, setBatchVirtualClustersEditor] = useState({
     isOpen: false,
     user: {},
@@ -255,6 +266,7 @@ export default function UserView() {
     showBatchPasswordEditor,
     showBatchQuotaEditor,
     showBatchVirtualClustersEditor,
+    showBatchAdditionalInformationEditor,
     showMessageBox,
   };
 
@@ -321,6 +333,12 @@ export default function UserView() {
         <BatchVirtualClustersEditor
           isOpen={batchVirtualClustersEditor.isOpen}
           hide={hideBatchVirtualClustersEditor}
+        />
+      )}
+      {batchAdditionalInformationEditor.isOpen && (
+        <BatchAdditionalInformationEditor
+          isOpen={batchAdditionalInformationEditor.isOpen}
+          hide={hideBatchAdditionalInformationEditor}
         />
       )}
       {loading.show && <MaskSpinnerLoading label={loading.text} />}
