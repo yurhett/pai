@@ -15,7 +15,7 @@
 // DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-import { getVirtualCluster } from './utils';
+import { getVirtualCluster, getQuota } from './utils';
 
 export default class Ordering {
   /**
@@ -39,6 +39,10 @@ export default class Ordering {
             String(getVirtualCluster(b)).localeCompare(getVirtualCluster(a))
         : (a, b) =>
             String(getVirtualCluster(a)).localeCompare(getVirtualCluster(b));
+    } else if (field === 'quota') {
+      comparator = descending
+        ? (a, b) => String(getQuota(b)).localeCompare(getQuota(a))
+        : (a, b) => String(getQuota(a)).localeCompare(getQuota(b));
     } else {
       comparator = descending
         ? (a, b) => String(b[field]).localeCompare(a[field])

@@ -30,7 +30,7 @@ import {
 import c from 'classnames';
 import t from '../../../components/tachyons.scss';
 
-import { getVirtualCluster } from './utils';
+import { getVirtualCluster, getQuota } from './utils';
 
 import Context from './Context';
 import Ordering from './Ordering';
@@ -124,7 +124,7 @@ export default function Table() {
     isResizable: true,
   });
 
-  const quotaColumn = {
+  const quotaColumn = applySortProps({
     key: 'quota',
     minWidth: 60,
     name: 'Quota',
@@ -132,9 +132,9 @@ export default function Table() {
     headerClassName: FontClassNames.medium,
     isResizable: true,
     onRender(user) {
-      return user.extension.quota;
+      return getQuota(user);
     },
-  };
+  });
 
   const virtualClusterColumn = applySortProps({
     key: 'virtualCluster',

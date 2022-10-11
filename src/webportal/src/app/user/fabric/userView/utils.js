@@ -20,3 +20,7 @@ export const getVirtualCluster = user => {
     ? 'All virtual clusters'
     : user.virtualCluster.sort().join(', ');
 };
+
+export const getQuota = user => {
+  return user.extension.quota;
+};
