@@ -29,7 +29,7 @@ def validate_config(config_path):
 def validata_node_os(config_path):
     layout_file = os.path.join(config_path, "layout.yaml")
     hosts = yaml.load(open(layout_file), yaml.SafeLoader)["machine-list"]
-    print hosts
+    print(hosts)
 
     host_not_match = []
     regex = r"Description:\s+Ubuntu\s+16.04(.\d)?\s+LTS"
