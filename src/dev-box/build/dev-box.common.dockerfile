@@ -1,9 +1,12 @@
 # Copyright (c) Microsoft Corporation.
 # Licensed under the MIT License.
 
-FROM ubuntu:16.04
+FROM ubuntu:18.04
+
+ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get -y update && \
+    apt-get install -y --no-install-recommends apt-utils && \
     apt-get -y install \
       nano \
       vim \
@@ -37,14 +40,12 @@ RUN apt-get -y update && \
       bash-completion \
       inotify-tools \
       rsync \
-      realpath \
+      coreutils \
       nfs-common \
       net-tools && \
     mkdir -p /cluster-configuration &&\
-    git clone https://github.com/Microsoft/pai.git &&\
-    pip install bcrypt==3.1.7 dnspython==1.16.0 python-etcd docker kubernetes==12.0.0 paramiko==2.6.0 cryptography==3.2 cachetools==3.1.1 GitPython==2.1.15 jsonschema attrs dicttoxml beautifulsoup4 future setuptools==44.1.0 &&\
-    python -m easy_install --upgrade pyOpenSSL && \
-    pip3 install kubernetes==12.0.0 jinja2
+    git clone https://github.com/siaimes/pai.git &&\
+    pip3 install pyOpenSSL jinja2 bcrypt==3.1.7 dnspython==1.16.0 python-etcd docker kubernetes==12.0.0 paramiko==2.6.0 cryptography==3.2 cachetools==3.1.1 GitPython==2.1.15 jsonschema attrs dicttoxml beautifulsoup4 future setuptools==44.1.0 requests docopt
 
 WORKDIR /tmp
 
@@ -97,14 +98,6 @@ RUN apt-get -y install apt-transport-https &&  \
 RUN wget https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 RUN chmod +x kubectl
 RUN mv kubectl /usr/local/bin
-
-# reinstall requests otherwise will get error: `cannot import name DependencyWarning`
-RUN echo y | pip uninstall requests && \
-    echo y | pip install requests && \
-    echo y | pip install docopt && \
-    echo y | pip3 uninstall requests && \
-    echo y | pip3 install requests && \
-    echo y | pip3 install docopt
 
 RUN rm -rf /tmp/*
 
