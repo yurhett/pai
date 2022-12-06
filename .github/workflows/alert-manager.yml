@@ -1,0 +1,60 @@
+name: Publish alert-manager Docker Images
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  push_to_registry:
+    name: Push Docker Image to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Set env
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Run build-pre.sh
+        working-directory: ./src/alert-manager/build
+        run: |
+          chmod +x ./build-pre.sh
+          ./build-pre.sh
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Push alert-handler to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: ./src/alert-manager
+          file: ./src/alert-manager/build/alert-handler.common.dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/alert-handler:${{ env.RELEASE_VERSION }}
+      - name: Push cert-expiration-checker to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: ./src/alert-manager
+          file: ./src/alert-manager/build/cert-expiration-checker.common.dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/cert-expiration-checker:${{ env.RELEASE_VERSION }}
+      - name: Push cluster-utilization to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: ./src/alert-manager
+          file: ./src/alert-manager/build/cluster-utilization.common.dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/cluster-utilization:${{ env.RELEASE_VERSION }}
+      - name: Push job-status-change-notification to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: ./src/alert-manager
+          file: ./src/alert-manager/build/job-status-change-notification.common.dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/job-status-change-notification:${{ env.RELEASE_VERSION }}
+      - name: Push nvidia-gpu-low-perf-fixer to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: ./src/alert-manager
+          file: ./src/alert-manager/build/nvidia-gpu-low-perf-fixer.common.dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/nvidia-gpu-low-perf-fixer:${{ env.RELEASE_VERSION }}
