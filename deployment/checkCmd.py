@@ -1,10 +1,10 @@
-from clusterObjectModel.cluster_object_model import cluster_object_model
+from .clusterObjectModel.cluster_object_model import cluster_object_model
 import os
 import logging
 import logging.config
 import yaml
 import re
-from k8sPaiLibrary.maintainlib import common as pai_common
+from .k8sPaiLibrary.maintainlib import common as pai_common
 
 logger = logging.getLogger(__name__)
 
