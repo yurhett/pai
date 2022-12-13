@@ -36,7 +36,7 @@ spec:
       serviceAccountName: hivedscheduler-account
       containers:
       - name: hivedscheduler
-        image: hivedscheduler/hivedscheduler:v0.3.4
+        image: siaimes/hivedscheduler:v0.4.0
         command: [
           "bash", "-c",
           "cp /hivedscheduler-config/hivedscheduler.yaml . &&
