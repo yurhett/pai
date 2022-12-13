@@ -224,7 +224,10 @@ export default function BatchRegister() {
         userInfo[columnPassword],
         toBool(userInfo[columnAdmin]),
         userInfo.vcs,
-        { quota: userInfo.quota, additionalInformation: userInfo.additionalInformation },
+        {
+          quota: userInfo.quota,
+          additionalInformation: userInfo.additionalInformation,
+        },
       )
         .then(() => {
           return successResult;

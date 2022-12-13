@@ -120,7 +120,7 @@ export default function UserEditor({
     const newPassword = passwordRef.current.value;
     const newEmail = emailRef.current.value;
     let newQuota = quotaRef.current.value;
-    let newAdditionalInformation = additionalInformationRef.current.value;
+    const newAdditionalInformation = additionalInformationRef.current.value;
     const newAdmin = adminRef.current.checked;
 
     if (isCreate) {

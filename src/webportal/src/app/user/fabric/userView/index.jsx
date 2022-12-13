@@ -224,7 +224,10 @@ export default function UserView() {
     setBatchQuotaEditor({ isOpen: false });
   };
 
-  const [batchAdditionalInformationEditor, setBatchAdditionalInformationEditor] = useState({
+  const [
+    batchAdditionalInformationEditor,
+    setBatchAdditionalInformationEditor,
+  ] = useState({
     isOpen: false,
   });
   const showBatchAdditionalInformationEditor = () => {
