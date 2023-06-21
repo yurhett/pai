@@ -1,5 +1,16 @@
 # OpenPAI Release Note
 
+## Jun 2023 (version 1.9.0)
+
+- Upgrade k8s to v1.16.x
+- Fix kubernetes-dashboard #17
+- Support user job quota
+- Add some new images
+- Update FC image to v1.0.1
+- Update openpai-runtime image to v1.0.0
+- Temporarily fix OSError/IOError maybe
+- Fix other bugs
+
 ## Dec 2021 (version 1.8.1)
 
 - Docker cache issues #5539 #5574
