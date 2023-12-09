@@ -20,8 +20,8 @@ sudo rm -rf ${HOME}/pai-deploy/kubespray
 git clone -b release-2.12 https://github.com/kubernetes-sigs/kubespray.git ${HOME}/pai-deploy/kubespray
 
 echo "Copy inventory folder, and save it "
+rm -rf ${HOME}/pai-deploy/kubespray/inventory/pai
 cp -rfp ${HOME}/pai-deploy/kubespray/inventory/sample ${HOME}/pai-deploy/kubespray/inventory/pai
-
 
 echo "Install necessray packages"
 
